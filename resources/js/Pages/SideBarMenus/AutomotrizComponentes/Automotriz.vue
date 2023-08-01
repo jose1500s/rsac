@@ -18,6 +18,7 @@ import { useToast } from 'primevue/usetoast';
 import Toast from 'primevue/toast';
 import { Inertia } from '@inertiajs/inertia'
 import Chart from 'primevue/chart';
+import graficaAutomotriz from './graficaAutomotriz.vue';
 
 const props = defineProps({
     registrosAutomotriz: {
@@ -54,6 +55,7 @@ const programaEducativo = ref(null);
 const proyecto_actividad = ref(null);
 const descripcion = ref(null);
 const beneficios_impacto = ref(null);
+const displayResponsive = ref(false);
 const responsable = ref();
 const involucrados = ref();
 const pdi = ref(null);
@@ -69,7 +71,7 @@ const cantidad = ref(0);
 const estatusModel = ref();
 const categoria = ref();
 const especificar = ref();
-
+const datosGraficar = ref();
 
 const programas_educativos_lista = ref([
     { nombre: 'Ing. en Tecnología Automotriz', value: 'Ing. en Tecnología Automotriz' }
@@ -109,7 +111,6 @@ const categorias_lista = ref([
 
 const onRowSelect = (event) => {
     const selectedRowData = event.data;
-    console.log(selectedRowData);
 };
 const onRowUnselect = (event) => {
     // alert('Producto deseleccionado')
@@ -133,7 +134,13 @@ watch([hombres1, mujeres1, hombres2, mujeres2], () => {
     calcularCantidad();
 });
 
+const openResponsive = () => {
+    displayResponsive.value = true;
+}
 
+const closeResponsive = () => {
+    displayResponsive.value = false;
+}
 
 const openEliminarDialog = () => {
     deleteProductsDialog.value = true;
@@ -407,6 +414,7 @@ onMounted(() => {
                     <Button label="Registrar" icon="pi pi-plus" severity="success" class="!mr-3" @click="openDialogNuevo" />
                     <Button label="Eliminar" icon="pi pi-trash" severity="danger" @click="openEliminarDialog"
                         :disabled="!selectedProduct || !selectedProduct.length" />
+                    <Button label="Grafica" icon="pi pi-chart-bar" class="!ml-3" @click="openResponsive" :disabled="!selectedProduct || !selectedProduct.length" />
                 </template>
 
                 <template #end>
@@ -465,11 +473,11 @@ onMounted(() => {
                         </div>
                     </div>
 
-                   
+
 
 
                 </div>
-              
+
                 <div class="contendorTabla">
                     <DataTable :value="registrosAutomotriz" ref="dt" class="p-datatable-sm" showGridlines stripedRows
                         paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" v-model:selection="selectedProduct"
@@ -519,18 +527,16 @@ onMounted(() => {
                                 <Textarea v-model="data[field]" rows="5" cols="30" />
                             </template>
                         </Column>
-                        
+
                         <Column field="responsable" header="Responsable">
                             <template #editor="{ data, field }">
-                                <InputText v-model="data[field]" 
-                                    />
+                                <InputText v-model="data[field]" />
                             </template>
-                            </Column>
+                        </Column>
 
-                            <Column field="involucrados" header="Involucrados">
+                        <Column field="involucrados" header="Involucrados">
                             <template #editor="{ data, field }">
-                                <InputText v-model="data[field]" 
-                                    />
+                                <InputText v-model="data[field]" />
                             </template>
                         </Column>
 
@@ -669,7 +675,7 @@ onMounted(() => {
                     </div>
 
                 </div>
-                 <div class="w-full mt-6">
+                <div class="w-full mt-6">
                     <span class="p-float-label">
                         <Textarea v-model="responsable" rows="5" cols="30" />
                         <label>Responsable</label>
@@ -784,6 +790,18 @@ onMounted(() => {
                 <template #footer>
                     <Button label="Cancelar" icon="pi pi-times" text @click="deleteProductsDialog = false" />
                     <Button label="Eliminar" icon="pi pi-check" text @click="eliminarProductos" />
+                </template>
+            </Dialog>
+
+            <!-- Dialog para Grafica -->
+            <Dialog header=" " v-model:visible="displayResponsive"
+                :breakpoints="{ '960px': '75vw', '75vw': '90vw' }" :style="{ width: '70vw' }">
+                <!-- contenido del dialog/model desde aqui... -->
+              
+                    <graficaAutomotriz class="m-auto" :datos="selectedProduct" />
+              
+                <template #footer>
+                    <Button label="Cerrar" icon="pi pi-check" @click="closeResponsive" autofocus />
                 </template>
             </Dialog>
 

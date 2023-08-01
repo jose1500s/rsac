@@ -1,5 +1,21 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
+
+const options = {
+    chart: {
+        id: 'vuechart-example'
+    },
+    xaxis: {
+        categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+    }
+};
+
+const series = [{
+    name: 'series-1',
+    data: [30, 40, 45, 50, 49, 60, 70, 91]
+}];
+
+
 </script>
 
 <template>
@@ -17,8 +33,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
                     <path d="M50 0H100L50 100H0L50 0Z"></path>
                 </svg>
                 <img class="object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none md:h-96 lg:h-full"
-                    src="images/backgroundLoginRegister.jpg"
-                    alt="" />
+                    src="images/backgroundLoginRegister.jpg" alt="" />
             </div>
             <div class="relative flex flex-col items-start w-full max-w-xl px-4 md:px-0 lg:px-8 lg:max-w-screen-xl">
                 <div class="mb-16 lg:my-40 lg:max-w-lg lg:pr-5">
@@ -32,8 +47,11 @@ import AppLayout from "@/Layouts/AppLayout.vue";
                         <span class="inline-block text-deep-purple-accent-400">Reportes SAC</span>
                     </h2>
                     <p class="pr-5 mb-5 text-base text-gray-700 md:text-lg">
-                        Aqui podras encontrar todo lo relacionado con los reportes SAC, desde la creacion de reportes, ingresar información y ver graficas de los reportes.
+                        Aqui podras encontrar todo lo relacionado con los reportes SAC, desde la creacion de reportes,
+                        ingresar información y ver graficas de los reportes.
                     </p>
+                    <apexchart width="500" type="bar" :options="options" :series="series"></apexchart>
+
                 </div>
             </div>
         </div>
