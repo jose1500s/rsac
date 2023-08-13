@@ -390,7 +390,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <AppLayout>
+    <AppLayout title="LAGE">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Lic. en Administración y Gestión Empresarial

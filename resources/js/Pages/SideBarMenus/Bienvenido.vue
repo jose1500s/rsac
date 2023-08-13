@@ -1,25 +1,10 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
 
-const options = {
-    chart: {
-        id: 'vuechart-example'
-    },
-    xaxis: {
-        categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
-    }
-};
-
-const series = [{
-    name: 'series-1',
-    data: [30, 40, 45, 50, 49, 60, 70, 91]
-}];
-
-
 </script>
 
 <template>
-    <AppLayout>
+    <AppLayout title="Inicio">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Inicio
@@ -50,7 +35,6 @@ const series = [{
                         Aqui podras encontrar todo lo relacionado con los reportes SAC, desde la creacion de reportes,
                         ingresar información y ver graficas de los reportes.
                     </p>
-                    <apexchart width="500" type="bar" :options="options" :series="series"></apexchart>
 
                 </div>
             </div>

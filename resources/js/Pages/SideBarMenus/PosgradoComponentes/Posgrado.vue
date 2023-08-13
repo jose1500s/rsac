@@ -389,7 +389,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <AppLayout>
+    <AppLayout title="Posgrado">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Posgrado

@@ -388,7 +388,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <AppLayout>
+    <AppLayout title="Negocios Internacionales">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Lic. en Negocios Internacionales
