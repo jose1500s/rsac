@@ -15,22 +15,22 @@ const props = defineProps({
 
 const formatCategories = (categories) => {
     return categories.map((item) =>
-        item.proyecto_actividad + '  -  ' + item.categoria + '  -  ' + item.estatus
+        item.proyecto_actividad + '  -  ' + item.estatus
     );
 };
 
 onMounted(() => {
-
+    console.log(props.datos)
 });
 
 series = [
     {
-        name: 'hombres',
-        data: props.datos.map((item) => item.hombres1 + item.hombres2)
+        name: 'Hombres',
+        data: props.datos.map((item) => item.hombres1 + item.hombres2),
     },
     {
-        name: 'mujeres',
-        data: props.datos.map((item) => item.mujeres1 + item.mujeres2)
+        name: 'Mujeres',
+        data: props.datos.map((item) => item.mujeres1 + item.mujeres2 )
     }
 ];
 
@@ -50,6 +50,7 @@ const options = {
                 speed: 350
             }
         },
+        stacked: true,
 
     },
     xaxis: {
@@ -85,6 +86,7 @@ const options = {
             dataLabels: {
                 position: 'center', // top, center, bottom
             },
+            horizontal: true
         }
     },
     dataLabels: {
@@ -92,19 +94,28 @@ const options = {
         formatter: function (val) {
             return val;
         },
-        offsetY: 5,
+        offsetY: 0,
         style: {
             fontSize: '18px',
             colors: ["#fff"]
         }
-    }
+    },
 
 };
 
 </script>
 
 <template>
-    <apexchart width="100%" height="550px" class="m-auto" type="bar" :options="options" :series="series"></apexchart>
+
+    <div v-if="props.datos === null || props.datos.length === 0" class="text-2xl text-center m-auto h-96 grid items-center">
+        <h2>Seleccione datos para graficar</h2>
+    </div>
+    <div v-else-if="props.datos.length <= 5">
+        <apexchart width="100%" height="550px" class="m-auto" type="bar" :options="options" :series="series"></apexchart>
+    </div>
+    <div v-else class="text-2xl text-center m-auto h-96 grid items-center">
+        <h2>Demasiados datos seleccionados, máximo 5</h2>
+    </div>
 </template>
 
 <style scoped></style>

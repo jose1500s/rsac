@@ -18,7 +18,7 @@ import { useToast } from 'primevue/usetoast';
 import Toast from 'primevue/toast';
 import { Inertia } from '@inertiajs/inertia'
 import Chart from 'primevue/chart';
-import graficaAutomotriz from './graficaAutomotriz.vue';
+import graficaHM from '../graficaHM.vue';
 
 const props = defineProps({
     registrosAutomotriz: {
@@ -56,7 +56,7 @@ const proyecto_actividad = ref(null);
 const descripcion = ref(null);
 const beneficios_impacto = ref(null);
 const displayResponsive = ref(false);
-const responsable = ref();
+const responsable = ref("");
 const involucrados = ref();
 const pdi = ref(null);
 const fecha_inicio = ref();
@@ -241,6 +241,8 @@ const registrarNuevo = () => {
                 estatusModel.value = null;
                 categoria.value = null;
                 especificar.value = null;
+                responsable.value = null;
+                involucrados.value = null;
                 chartData.value = setChartData();
                 toast.add({
                     severity: "success",
@@ -798,7 +800,7 @@ onMounted(() => {
                 :breakpoints="{ '960px': '75vw', '75vw': '90vw' }" :style="{ width: '70vw' }">
                 <!-- contenido del dialog/model desde aqui... -->
               
-                    <graficaAutomotriz class="m-auto" :datos="selectedProduct" />
+                    <graficaHM class="m-auto" :datos="selectedProduct" />
               
                 <template #footer>
                     <Button label="Cerrar" icon="pi pi-check" @click="closeResponsive" autofocus />

@@ -18,7 +18,7 @@ import { useToast } from 'primevue/usetoast';
 import Toast from 'primevue/toast';
 import { Inertia } from '@inertiajs/inertia'
 import Chart from 'primevue/chart';
-
+import graficaHM from '../graficaHM.vue';
 const props = defineProps({
     registrosRedes: {
         type: Array,
@@ -55,6 +55,7 @@ const proyecto_actividad = ref(null);
 const descripcion = ref(null);
 const beneficios_impacto = ref(null);
 const responsable = ref();
+const displayResponsive = ref(false);
 const involucrados = ref();
 const pdi = ref(null);
 const fecha_inicio = ref();
@@ -124,6 +125,14 @@ const ocultarNuevoRegistro = () => {
     // cerrar el dialog
     productDialog.value = false;
 };
+
+const openResponsive = () => {
+    displayResponsive.value = true;
+}
+
+const closeResponsive = () => {
+    displayResponsive.value = false;
+}
 
 function calcularCantidad() {
     cantidad.value = hombres1.value + mujeres1.value + hombres2.value + mujeres2.value;
@@ -404,6 +413,7 @@ onMounted(() => {
                     <Button label="Registrar" icon="pi pi-plus" severity="success" class="!mr-3" @click="openDialogNuevo" />
                     <Button label="Eliminar" icon="pi pi-trash" severity="danger" @click="openEliminarDialog"
                         :disabled="!selectedProduct || !selectedProduct.length" />
+                        <Button label="Grafica" icon="pi pi-chart-bar" class="!ml-3" @click="openResponsive" :disabled="!selectedProduct || !selectedProduct.length" />
                 </template>
 
                 <template #end>
@@ -780,6 +790,18 @@ onMounted(() => {
                 <template #footer>
                     <Button label="Cancelar" icon="pi pi-times" text @click="deleteProductsDialog = false" />
                     <Button label="Eliminar" icon="pi pi-check" text @click="eliminarProductos" />
+                </template>
+            </Dialog>
+
+             <!-- Dialog para Grafica -->
+             <Dialog header=" " v-model:visible="displayResponsive"
+                :breakpoints="{ '960px': '75vw', '75vw': '90vw' }" :style="{ width: '70vw' }">
+                <!-- contenido del dialog/model desde aqui... -->
+              
+                    <graficaHM class="m-auto" :datos="selectedProduct" />
+              
+                <template #footer>
+                    <Button label="Cerrar" icon="pi pi-check" @click="closeResponsive" autofocus />
                 </template>
             </Dialog>
 
