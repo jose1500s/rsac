@@ -397,9 +397,75 @@ const setChartOptions = () => {
 onMounted(() => {
     chartData.value = setChartData();
     chartOptions.value = setChartOptions();
+    console.log(props.registrosAutomotriz)
 });
 
+const seriesProgramas = [
+    {
+        name: 'En proceso',
+        data: props.registrosAutomotriz.map((item) => item.estatus == 'En proceso' ? item.cantidad : 0)
+    },
+    {
+        name: 'Concluido',
+        data: props.registrosAutomotriz.map((item) => item.estatus == 'Concluido' ? item.cantidad : 0)
+    },
+    {
+        name: 'Cancelado',
+        data: props.registrosAutomotriz.map((item) => item.estatus == 'Cancelado' ? item.cantidad : 0)
+    },
+];
 
+const programasOptions = {
+    chart: {
+        id: 'char-estatus',
+        animations: {
+            enabled: true,
+            easing: 'easeinout',
+            speed: 800,
+            animateGradually: {
+                enabled: true,
+                delay: 150
+            },
+            dynamicAnimation: {
+                enabled: true,
+                speed: 350
+            },
+            zoom: {
+                enabled: true,
+                type: 'x',
+                zoomedArea: {
+                    fill: {
+                        color: '#90CAF9',
+                        opacity: 0.4
+                    },
+                    stroke: {
+                        color: '#0D47A1',
+                        opacity: 0.4,
+                        width: 1
+                    }
+                },
+                zoomTrigger: {
+                    animation: {
+                        duration: 1500
+                    }
+                },
+                zoomedArea: {
+                    fill: {
+                        color: '#0D47A1',
+                        opacity: 0.05
+                    },
+                    stroke: {
+                        color: '#0D47A1',
+                        opacity: 0.4,
+                        width: 1
+                    }
+                }
+            },
+        },
+
+    },
+
+};
 </script>
 
 <template>
@@ -416,7 +482,8 @@ onMounted(() => {
                     <Button label="Registrar" icon="pi pi-plus" severity="success" class="!mr-3" @click="openDialogNuevo" />
                     <Button label="Eliminar" icon="pi pi-trash" severity="danger" @click="openEliminarDialog"
                         :disabled="!selectedProduct || !selectedProduct.length" />
-                    <Button label="Grafica" icon="pi pi-chart-bar" class="!ml-3" @click="openResponsive" :disabled="!selectedProduct || !selectedProduct.length" />
+                    <Button label="Grafica" icon="pi pi-chart-bar" class="!ml-3" @click="openResponsive"
+                        :disabled="!selectedProduct || !selectedProduct.length" />
                 </template>
 
                 <template #end>
@@ -426,9 +493,13 @@ onMounted(() => {
             </Toolbar>
             <div class="contenedorGraficaTabla">
                 <div id="contenedorGraficas" class="w-full flex items-center flex-col gap-0.2">
-                    <!--  de la linea 416 a la 418 es la grafica -->
-                    <div class="w-full">
-                        <Chart type="bar" :data="chartData" :options="chartOptions" class="h-30rem" />
+                    <div id="graficas" class="flex justify-center items-center w-full">
+                        <div id="chartHM" class="w-1/2">
+                            <Chart type="bar" :data="chartData" :options="chartOptions" class="h-30rem" />
+                        </div>
+                        <div id="chart" class="w-1/2">
+                            <apexchart type="line" height="350" :options="programasOptions" :series="seriesProgramas"></apexchart>
+                        </div>
                     </div>
                     <div class="w-full flex gap-5 mt-500">
                         <div
@@ -796,12 +867,12 @@ onMounted(() => {
             </Dialog>
 
             <!-- Dialog para Grafica -->
-            <Dialog header=" " v-model:visible="displayResponsive"
-                :breakpoints="{ '960px': '75vw', '75vw': '90vw' }" :style="{ width: '70vw' }">
+            <Dialog header=" " v-model:visible="displayResponsive" :breakpoints="{ '960px': '75vw', '75vw': '90vw' }"
+                :style="{ width: '70vw' }">
                 <!-- contenido del dialog/model desde aqui... -->
-              
-                    <graficaHM class="m-auto" :datos="selectedProduct" />
-              
+
+                <graficaHM class="m-auto" :datos="selectedProduct" />
+
                 <template #footer>
                     <Button label="Cerrar" icon="pi pi-check" @click="closeResponsive" autofocus />
                 </template>
