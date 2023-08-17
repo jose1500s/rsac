@@ -20,7 +20,6 @@ import ToastService from 'primevue/toastservice';
 //apexCharts
 import VueApexCharts from "vue3-apexcharts";
 
-
 import LaravelPermissionToVueJS from 'laravel-permission-to-vuejs'
 
 

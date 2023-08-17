@@ -1,6 +1,97 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
+import { defineProps, onMounted, ref } from 'vue';
+import bienvenidaGraficaTree from "./bienvenidaGraficaTree.vue";
+import radialTotalsChart from "./radialTotalsChart.vue";
+const props = defineProps({
+    enProcesoAutomotriz: {
+        type: Number,
+    },
+    enProcesoCoordinacion: {
+        type: Number,
+    },
+    enProcesoLAGE: {
+        type: Number,
+    },
+    enProcesoManufactura: {
+        type: Number,
+    },
+    enProcesoMecatronica: {
+        type: Number,
+    },
+    enProcesoNegocio: {
+        type: Number,
+    },
+    enProcesoPosgrado: {
+        type: Number,
+    },
+    enProcesoRede: {
+        type: Number,
+    },
+    enProcesoSistema: {
+        type: Number,
+    },
 
+    concluidoAutomotriz: {
+        type: Number,
+    },
+    concluidoCoordinacion: {
+        type: Number,
+    },
+    concluidoLAGE: {
+        type: Number,
+    },
+    concluidoManufactura: {
+        type: Number,
+    },
+    concluidoMecatronica: {
+        type: Number,
+    },
+    concluidoNegocio: {
+        type: Number,
+    },
+    concluidoPosgrado: {
+        type: Number,
+    },
+    concluidoRede: {
+        type: Number,
+    },
+    concluidoSistema: {
+        type: Number,
+    },
+
+    canceladoAutomotriz: {
+        type: Number,
+    },
+    canceladoCoordinacion: {
+        type: Number,
+    },
+    canceladoLAGE: {
+        type: Number,
+    },
+    canceladoManufactura: {
+        type: Number,
+    },
+    canceladoMecatronica: {
+        type: Number,
+    },
+    canceladoNegocio: {
+        type: Number,
+    },
+    canceladoPosgrado: {
+        type: Number,
+    },
+    canceladoRede: {
+        type: Number,
+    },
+    canceladoSistema: {
+        type: Number,
+    },
+});
+
+onMounted(() => {
+   
+});
 </script>
 
 <template>
@@ -35,12 +126,144 @@ import AppLayout from "@/Layouts/AppLayout.vue";
                         Aqui podras encontrar todo lo relacionado con los reportes SAC, desde la creacion de reportes,
                         ingresar información y ver graficas de los reportes.
                     </p>
-
+                    <h3>Desplazate hacia abajo para ver indicadores sobre los proyectos!</h3>
+                    
                 </div>
+                <div class="scroll-down-dude"></div>
             </div>
         </div>
+        <div id="charts" class=" mt-40 w-full m-auto flex justify-center items-center gap-6">
+            <div id="treeChart" class="w-2/3">
+                <bienvenidaGraficaTree
+                :enProcesoAutomotriz="enProcesoAutomotriz"
+                :enProcesoCoordinacion="enProcesoCoordinacion"
+                :enProcesoLAGE="enProcesoLAGE"
+                :enProcesoManufactura="enProcesoManufactura"
+                :enProcesoMecatronica="enProcesoMecatronica"
+                :enProcesoNegocio="enProcesoNegocio"
+                :enProcesoPosgrado="enProcesoPosgrado"
+                :enProcesoRede="enProcesoRede"
+                :enProcesoSistema="enProcesoSistema"
+            />
+            </div>
+
+            <div id="radialChart" class="h-1/3">
+                <radialTotalsChart 
+                :enProcesoAutomotriz="enProcesoAutomotriz"
+                :enProcesoCoordinacion="enProcesoCoordinacion"
+                :enProcesoLAGE="enProcesoLAGE"
+                :enProcesoManufactura="enProcesoManufactura"
+                :enProcesoMecatronica="enProcesoMecatronica"
+                :enProcesoNegocio="enProcesoNegocio"
+                :enProcesoPosgrado="enProcesoPosgrado"
+                :enProcesoRede="enProcesoRede"
+                :enProcesoSistema="enProcesoSistema"
+
+                :concluidoAutomotriz="concluidoAutomotriz"
+                :concluidoCoordinacion="concluidoCoordinacion"
+                :concluidoLAGE="concluidoLAGE"
+                :concluidoManufactura="concluidoManufactura"
+                :concluidoMecatronica="concluidoMecatronica"
+                :concluidoNegocio="concluidoNegocio"
+                :concluidoPosgrado="concluidoPosgrado"
+                :concluidoRede="concluidoRede"
+                :concluidoSistema="concluidoSistema"
+
+                :canceladoAutomotriz="canceladoAutomotriz"
+                :canceladoCoordinacion="canceladoCoordinacion"
+                :canceladoLAGE="canceladoLAGE"
+                :canceladoManufactura="canceladoManufactura"
+                :canceladoMecatronica="canceladoMecatronica"
+                :canceladoNegocio="canceladoNegocio"
+                :canceladoPosgrado="canceladoPosgrado"
+                :canceladoRede="canceladoRede"
+                :canceladoSistema="canceladoSistema"
+
+                
+                />
+            </div>
+        </div>
+        
     </AppLayout>
 </template>
 
+<style scoped>
+.scroll-down-dude {
+  position: absolute;
+  bottom: 50px;
+  left: 20%;
+  margin-left: -12px;
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 50%;
+  -webkit-animation: bounce 2s infinite 2s;
+          animation: bounce 2s infinite 2s;
+}
+.scroll-down-dude:before,
+.scroll-down-dude:after {
+  content: "";
+  display: block;
+  width: 12px;
+  height: 12px;
+  transform: rotate(45deg);
+  border-bottom: 4px solid #a1222c;
+  border-right: 4px solid #a1222c;
+}
+
+.scroll-down-dude:before {
+  -webkit-animation: down-arrow-before 2.6s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+          animation: down-arrow-before 2.6s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+}
+
+.scroll-down-dude:after {
+  -webkit-animation: down-arrow-after 2.6s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+          animation: down-arrow-after 2.6s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+}
+
+@-webkit-keyframes down-arrow-before {
+  50% {
+    transform: rotate(45deg) translate(70%, 70%);
+  }
+  100% {
+    transform: rotate(45deg) translate(70%, 70%);
+  }
+}
+
+@keyframes down-arrow-before {
+  50% {
+    transform: rotate(45deg) translate(70%, 70%);
+  }
+  100% {
+    transform: rotate(45deg) translate(70%, 70%);
+  }
+}
+@-webkit-keyframes down-arrow-after {
+  50% {
+    transform: rotate(45deg) translate(110%, 110%);
+    opacity: 0;
+  }
+  51% {
+    transform: rotate(45deg) translate(-130%, -130%);
+  }
+  100% {
+    transform: rotate(45deg) translate(-70%, -70%);
+    opacity: 1;
+  }
+}
+@keyframes down-arrow-after {
+  50% {
+    transform: rotate(45deg) translate(110%, 110%);
+    opacity: 0;
+  }
+  51% {
+    transform: rotate(45deg) translate(-130%, -130%);
+  }
+  100% {
+    transform: rotate(45deg) translate(-70%, -70%);
+    opacity: 1;
+  }
+}
+</style>
 
 

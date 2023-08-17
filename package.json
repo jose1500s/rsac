@@ -27,6 +27,7 @@
         "laravel-permission-to-vuejs": "^3.0.1",
         "primeicons": "^6.0.1",
         "primevue": "^3.26.0",
+        "scrollreveal": "^4.0.9",
         "vue-apexcharts": "^1.6.2",
         "vue3-apexcharts": "^1.4.4"
     }

@@ -359,7 +359,7 @@ const setChartOptions = () => {
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
     return {
-        indexAxis: 'y',
+        indexAxis: 'x',
         maintainAspectRatio: false,
         aspectRatio: 0.8,
         plugins: {
@@ -391,7 +391,7 @@ const setChartOptions = () => {
                     drawBorder: false
                 }
             }
-        }
+        },
     };
 }
 onMounted(() => {
@@ -400,19 +400,21 @@ onMounted(() => {
     console.log(props.registrosAutomotriz)
 });
 
+
 const seriesProgramas = [
     {
         name: 'En proceso',
-        data: props.registrosAutomotriz.map((item) => item.estatus == 'En proceso' ? item.cantidad : 0)
+        data: [props.enProcesoCount, 0], 
     },
     {
         name: 'Concluido',
-        data: props.registrosAutomotriz.map((item) => item.estatus == 'Concluido' ? item.cantidad : 0)
+        data: [props.concluidoCount, 0]
     },
     {
         name: 'Cancelado',
-        data: props.registrosAutomotriz.map((item) => item.estatus == 'Cancelado' ? item.cantidad : 0)
-    },
+        data: [props.canceladoCount, 0]
+    }
+    
 ];
 
 const programasOptions = {
@@ -464,6 +466,9 @@ const programasOptions = {
         },
 
     },
+    xaxis: {
+        categories: [props.registrosAutomotriz.map((item) => item.programa_educativo)],
+    }
 
 };
 </script>
@@ -494,11 +499,12 @@ const programasOptions = {
             <div class="contenedorGraficaTabla">
                 <div id="contenedorGraficas" class="w-full flex items-center flex-col gap-0.2">
                     <div id="graficas" class="flex justify-center items-center w-full">
-                        <div id="chartHM" class="w-1/2">
-                            <Chart type="bar" :data="chartData" :options="chartOptions" class="h-30rem" />
+                        <div id="chartHM" class="w-1/2 !h-[340px]">
+                            <Chart type="bar" :data="chartData" :options="chartOptions" class="h-full" />
                         </div>
                         <div id="chart" class="w-1/2">
-                            <apexchart type="line" height="350" :options="programasOptions" :series="seriesProgramas"></apexchart>
+                            <apexchart type="line" height="350" :options="programasOptions" :series="seriesProgramas">
+                            </apexchart>
                         </div>
                     </div>
                     <div class="w-full flex gap-5 mt-500">
