@@ -1,7 +1,8 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { watch } from 'vue';
-
+//importar html2pdf
+import html2pdf from 'html2pdf.js';
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { FilterMatchMode } from 'primevue/api';
 import DataTable from 'primevue/datatable';
@@ -32,6 +33,34 @@ const props = defineProps({
         type: Number,
     },
     canceladoCount: {
+        type: Number,
+    },
+
+    acreditacionCount: {
+        type: Number,
+    },
+    capacitacionCount: {
+        type: Number,
+    },
+    CertificaciónCompetenciasCount: {
+        type: Number,
+    },
+    eventoCount: {
+        type: Number,
+    },
+    investigacionCount: {
+        type: Number,
+    },
+    materialEducativoCount: {
+        type: Number,
+    },
+    planDeEstudioCount: {
+        type: Number,
+    },
+    proyectoCount: {
+        type: Number,
+    },
+    otroCount: {
         type: Number,
     },
 });
@@ -266,7 +295,6 @@ const formatearFechaFin = () => {
     );
 
     fecha_fin.value = fecha_fin_formateada;
-    console.log('fin', fecha_fin.value)
 }
 const formatearFechaInicio = () => {
 
@@ -279,7 +307,6 @@ const formatearFechaInicio = () => {
     );
 
     fecha_inicio.value = fecha_inicio_formateada;
-    console.log('inicio', fecha_inicio.value)
 
 }
 
@@ -359,7 +386,7 @@ const setChartOptions = () => {
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
     return {
-        indexAxis: 'x',
+        indexAxis: 'y',
         maintainAspectRatio: false,
         aspectRatio: 0.8,
         plugins: {
@@ -402,79 +429,231 @@ onMounted(() => {
 
 
 const seriesProgramas = [
-    {
-        name: 'En proceso',
-        data: [props.enProcesoCount, 0], 
-    },
-    {
-        name: 'Concluido',
-        data: [props.concluidoCount, 0]
-    },
-    {
-        name: 'Cancelado',
-        data: [props.canceladoCount, 0]
-    }
-    
+    props.enProcesoCount,
+    props.concluidoCount,
+    props.canceladoCount
 ];
 
 const programasOptions = {
     chart: {
         id: 'char-estatus',
-        animations: {
-            enabled: true,
-            easing: 'easeinout',
-            speed: 800,
-            animateGradually: {
-                enabled: true,
-                delay: 150
-            },
-            dynamicAnimation: {
-                enabled: true,
-                speed: 350
-            },
-            zoom: {
-                enabled: true,
-                type: 'x',
-                zoomedArea: {
-                    fill: {
-                        color: '#90CAF9',
-                        opacity: 0.4
-                    },
-                    stroke: {
-                        color: '#0D47A1',
-                        opacity: 0.4,
-                        width: 1
-                    }
-                },
-                zoomTrigger: {
-                    animation: {
-                        duration: 1500
-                    }
-                },
-                zoomedArea: {
-                    fill: {
-                        color: '#0D47A1',
-                        opacity: 0.05
-                    },
-                    stroke: {
-                        color: '#0D47A1',
-                        opacity: 0.4,
-                        width: 1
-                    }
-                }
-            },
-        },
-
+        type: 'pie',
     },
-    xaxis: {
-        categories: [props.registrosAutomotriz.map((item) => item.programa_educativo)],
-    }
+    labels: ['En proceso', 'Concluido', 'Cancelado'],
+    responsive: [{
+        breakpoint: 480,
+        options: {
+            chart: {
+                width: 200
+            },
+            legend: {
+                position: 'bottom'
+            }
+        }
+    }],
+    colors: ['#008FFB', '#00E396', '#900C3F'],
+    dataLabels: {
+        enabled: true,
+        dropShadow: {
+            enabled: false,
+        },
+        style: {
+            fontSize: '14px',
+            fontFamily: 'Helvetica, Arial, sans-serif',
+            fontWeight: 'bold',
+            colors: ['#fff']
+        },
+    },
+    chart: {
+        toolbar: {
+            show: true,
+        }
+    },
+    title: {
+        text: 'Estatus',
+        align: 'bottom',
+        style: {
+            fontSize: '16px',
+            color: '#666'
+        }
+    },
+
 
 };
+
+const categoriasOptions = {
+    chart: {
+        type: 'bar',
+        height: 390,
+    },
+    plotOptions: {
+        bar: {
+            barHeight: '100%',
+            distributed: true,
+            horizontal: true,
+            dataLabels: {
+                position: 'bottom'
+            },
+        }
+    },
+    dataLabels: {
+        enabled: true,
+        textAnchor: 'start',
+        style: {
+            colors: ['#fff']
+        },
+        formatter: function (val, opt) {
+            //retornar el nombre y el valor
+            return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val
+        },
+        offsetX: 0,
+        dropShadow: {
+            enabled: true
+        }
+    },
+    stroke: {
+        width: 1,
+        colors: ['#fff']
+    },
+    xaxis: {
+        categories: [
+            'Acreditación',
+            'Capacitación',
+            'Certificación-Competencias',
+            'Evento',
+            'Investigación',
+            'Material educativo',
+            'Plan de estudio',
+            'Proyecto',
+            'Otro',
+        ],
+    },
+    yaxis: {
+        labels: {
+            show: false
+        }
+    },
+    colors: ['#008FFB', '#00E396', '#900C3F', '#FF4560', '#775DD0', '#546E7A', '#26a69a', '#D10CE8', '#FF8F00'],
+    title: {
+        text: 'Categorias',
+        align: 'bottom',
+        style: {
+            fontSize: '16px',
+            color: '#666'
+        }
+    },
+    tooltip: {
+        theme: 'dark',
+        x: {
+            show: false
+        },
+        y: {
+            title: {
+                formatter: function () {
+                    return ''
+                }
+            }
+        }
+    },
+};
+
+const seriesCategorias = [
+    {
+        data: [
+            props.acreditacionCount,
+            props.capacitacionCount,
+            props.CertificaciónCompetenciasCount,
+            props.eventoCount,
+            props.investigacionCount,
+            props.materialEducativoCount,
+            props.planDeEstudioCount,
+            props.proyectoCount,
+            props.otroCount,
+        ]
+    }
+];
+
+const exportPDF = () => {
+    const divContainer = document.createElement('div');
+
+    divContainer.innerHTML = `
+            <div id="heading" class="flex justify-between"> 
+                 <div id="img1">
+                     <img  src="images/UPQLOGOREDONDO.png" alt="Logo-UTVT-1"  width="100px !import">
+                </div>
+                <div id="img2">
+                    <img  src="images/RSAC-logos_transparent.png" alt="Logo-UTVT-1"  width="100px">
+                </div>
+            </div>
+                <div>
+                    <div>
+                        <h3 class="text-xl font-bold text-indigo-600 sm:text-3xl m-5">
+                            RSAC - Reporte de Proyectos y Actividades
+                        </h3>
+                     </div>
+                     <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+                        <thead class="ltr:text-left rtl:text-right">
+                            <tr class='text-left'>
+                                <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Programa Educativo</th>
+                                <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Proyecto/Actividad</th>
+                                <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Responsable</th>
+                                <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Estatus</th>
+                                <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Categoria</th>
+                                <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">PDI</th>
+                                <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Fecha Inicio</th>
+                                <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Fecha Fin</th>
+                                <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Unidades</th>
+                                <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Hombres</th>
+                                <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Mujeres</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            ${selectedProduct.value.map((item) => {
+        return `
+                                    <tr class="odd:bg-gray-50">
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">${item.programa_educativo}</td>
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">${item.proyecto_actividad}</td>
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">${item.responsable}</td>
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">${item.estatus}</td>
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">${item.categoria}</td>
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">${item.PDI}</td>
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">${item.fecha_inicio}</td>
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">${item.fecha_fin}</td>
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">${item.unidad + ' - ' + item.unidad2}</td>
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">${item.hombres1 + item.hombres2}</td>
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">${item.mujeres1 + item.mujeres2}</td>
+                                    </tr>
+                                `;
+    }).join('')
+        }
+                        </tbody>
+                    </table>
+                </div
+            </div>
+            
+        `;
+    const opt = {
+        margin: 0,
+        filename: 'reporte.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: {
+            unit: 'in',
+            format: 'letter',
+            orientation: 'landscape',
+            format: [14, 20] //hacer grande el pdf, pa que quepa todas las columnas
+        }
+    };
+
+    html2pdf().from(divContainer).set(opt).save();
+
+}
+
 </script>
 
 <template>
-    <AppLayout title="Automotriz">
+    <AppLayout title="Automotriz" class="z-10">
+
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Ing. en Tecnología Automotriz
@@ -489,6 +668,8 @@ const programasOptions = {
                         :disabled="!selectedProduct || !selectedProduct.length" />
                     <Button label="Grafica" icon="pi pi-chart-bar" class="!ml-3" @click="openResponsive"
                         :disabled="!selectedProduct || !selectedProduct.length" />
+                    <Button label="PDF" icon="pi pi-chart-bar" class="!ml-3" @click="exportPDF"
+                        :disabled="!selectedProduct || !selectedProduct.length" />
                 </template>
 
                 <template #end>
@@ -496,14 +677,16 @@ const programasOptions = {
                     <Button label="Excel" icon="pi pi-upload" severity="help" @click="exportCSV($event)" />
                 </template>
             </Toolbar>
-            <div class="contenedorGraficaTabla">
+            <div id="contenedorGraficaTabla">
+                <Chart id="table-content" type="bar" :data="chartData" :options="chartOptions" class="h-full" />
                 <div id="contenedorGraficas" class="w-full flex items-center flex-col gap-0.2">
                     <div id="graficas" class="flex justify-center items-center w-full">
-                        <div id="chartHM" class="w-1/2 !h-[340px]">
-                            <Chart type="bar" :data="chartData" :options="chartOptions" class="h-full" />
+                        <div id="chartEstatus" class="w-full flex justify-center items-center">
+                            <apexchart type="pie" width="425" :options="programasOptions" :series="seriesProgramas">
+                            </apexchart>
                         </div>
-                        <div id="chart" class="w-1/2">
-                            <apexchart type="line" height="350" :options="programasOptions" :series="seriesProgramas">
+                        <div id="chartCategorias" class="w-full">
+                            <apexchart type="bar" height="380" :options="categoriasOptions" :series="seriesCategorias">
                             </apexchart>
                         </div>
                     </div>
@@ -888,4 +1071,5 @@ const programasOptions = {
     </AppLayout>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>

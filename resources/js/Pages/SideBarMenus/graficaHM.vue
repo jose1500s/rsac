@@ -20,7 +20,6 @@ const formatCategories = (categories) => {
 };
 
 onMounted(() => {
-    console.log(props.datos)
 });
 
 series = [

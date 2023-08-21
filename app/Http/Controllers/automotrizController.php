@@ -14,12 +14,31 @@ class automotrizController extends Controller
         $concluidoCount = tb_automotriz::where('estatus', 'Concluido')->count();
         $canceladoCount = tb_automotriz::where('estatus', 'Cancelado')->count();
         
+        $acreditacionCount = tb_automotriz::where('categoria', 'Acreditación')->count();
+        $capacitacionCount = tb_automotriz::where('categoria', 'Capacitación')->count();
+        $CertificaciónCompetenciasCount = tb_automotriz::where('categoria', 'Certificación de competencias')->count();
+        $eventoCount = tb_automotriz::where('categoria', 'Evento')->count();
+        $investigacionCount = tb_automotriz::where('categoria', 'Investigación')->count();
+        $materialEducativoCount = tb_automotriz::where('categoria', 'Material educativo')->count();
+        $planDeEstudioCount = tb_automotriz::where('categoria', 'Plan de estudio')->count();
+        $proyectoCount = tb_automotriz::where('categoria', 'Proyecto')->count();
+        $otroCount = tb_automotriz::where('categoria', 'Otro')->count();
 
         return Inertia::render('SideBarMenus/AutomotrizComponentes/Automotriz', [
             'registrosAutomotriz' => $automotriz,
             'enProcesoCount' => $enProcesoCount,
             'concluidoCount' => $concluidoCount,
             'canceladoCount' => $canceladoCount,
+        
+            'acreditacionCount' => $acreditacionCount,
+            'capacitacionCount' => $capacitacionCount,
+            'CertificaciónCompetenciasCount' => $CertificaciónCompetenciasCount,
+            'eventoCount' => $eventoCount,
+            'investigacionCount' => $investigacionCount,
+            'materialEducativoCount' => $materialEducativoCount,
+            'planDeEstudioCount' => $planDeEstudioCount,
+            'proyectoCount' => $proyectoCount,
+            'otroCount' => $otroCount,
         ]);
     }
 
