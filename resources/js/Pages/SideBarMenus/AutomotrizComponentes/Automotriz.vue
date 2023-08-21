@@ -668,7 +668,7 @@ const exportPDF = () => {
                         :disabled="!selectedProduct || !selectedProduct.length" />
                     <Button label="Grafica" icon="pi pi-chart-bar" class="!ml-3" @click="openResponsive"
                         :disabled="!selectedProduct || !selectedProduct.length" />
-                    <Button label="PDF" icon="pi pi-chart-bar" class="!ml-3" @click="exportPDF"
+                    <Button label="PDF" icon="pi pi-file-excel" class="!ml-3" @click="exportPDF"
                         :disabled="!selectedProduct || !selectedProduct.length" />
                 </template>
 
