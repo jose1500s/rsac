@@ -17,6 +17,9 @@ import "primeicons/primeicons.css";
 import ConfirmationService from 'primevue/confirmationservice'; // notificacion de confirmacion
 import ToastService from 'primevue/toastservice';
 
+//apexCharts
+import VueApexCharts from "vue3-apexcharts";
+
 import LaravelPermissionToVueJS from 'laravel-permission-to-vuejs'
 
 
@@ -33,6 +36,7 @@ createInertiaApp({
             .use(ConfirmationService)
             .use(ToastService)
             .use(LaravelPermissionToVueJS)
+            .use(VueApexCharts) //The .use(VueApexCharts) will make <apexchart> component available everywhere.
             .mount(el);
     },
     progress: {

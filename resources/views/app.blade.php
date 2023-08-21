@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title> 
+        <link rel="icon" href="{{ asset('images/UPQLOGOREDONDO.png') }}" type="image/png" sizes="50x50">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

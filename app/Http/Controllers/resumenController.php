@@ -6,10 +6,83 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\tb_resumen;
 use App\Models\tb_actividades_transversale;
+use App\Models\tb_automotriz;
+use App\models\tb_coordinacion;
+use App\Models\tb_LAGE;
+use App\models\tb_manufactura;
+use App\models\tb_mecatronica;
+use App\models\tb_negocio;
+use App\models\tb_posgrado;
+use App\models\tb_rede;
+use App\models\tb_sistema;
+
 class resumenController extends Controller
 {
     public function viewBienvenida() {
-        return Inertia::render('SideBarMenus/Bienvenido');
+        $enProcesoAutomotriz = tb_automotriz::where('estatus', 'En proceso')->count();
+        $enProcesoCoordinacion = tb_coordinacion::where('estatus', 'En proceso')->count();
+        $enProcesoLAGE = tb_LAGE::where('estatus', 'En proceso')->count();
+        $enProcesoManufactura = tb_manufactura::where('estatus', 'En proceso')->count();
+        $enProcesoMecatronica = tb_mecatronica::where('estatus', 'En proceso')->count();
+        $enProcesoNegocio = tb_negocio::where('estatus', 'En proceso')->count();
+        $enProcesoPosgrado = tb_posgrado::where('estatus', 'En proceso')->count();
+        $enProcesoRede = tb_rede::where('estatus', 'En proceso')->count();
+        $enProcesoSistema = tb_sistema::where('estatus', 'En proceso')->count();
+
+        $concluidoAutomotriz = tb_automotriz::where('estatus', 'Concluido')->count();
+        $concluidoCoordinacion = tb_coordinacion::where('estatus', 'Concluido')->count();
+        $concluidoLAGE = tb_LAGE::where('estatus', 'Concluido')->count();
+        $concluidoManufactura = tb_manufactura::where('estatus', 'Concluido')->count();
+        $concluidoMecatronica = tb_mecatronica::where('estatus', 'Concluido')->count();
+        $concluidoNegocio = tb_negocio::where('estatus', 'Concluido')->count();
+        $concluidoPosgrado = tb_posgrado::where('estatus', 'Concluido')->count();
+        $concluidoRede = tb_rede::where('estatus', 'Concluido')->count();
+        $concluidoSistema = tb_sistema::where('estatus', 'Concluido')->count();
+
+        $canceladoAutomotriz = tb_automotriz::where('estatus', 'Cancelado')->count();
+        $canceladoCoordinacion = tb_coordinacion::where('estatus', 'Cancelado')->count();
+        $canceladoLAGE = tb_LAGE::where('estatus', 'Cancelado')->count();
+        $canceladoManufactura = tb_manufactura::where('estatus', 'Cancelado')->count();
+        $canceladoMecatronica = tb_mecatronica::where('estatus', 'Cancelado')->count();
+        $canceladoNegocio = tb_negocio::where('estatus', 'Cancelado')->count();
+        $canceladoPosgrado = tb_posgrado::where('estatus', 'Cancelado')->count();
+        $canceladoRede = tb_rede::where('estatus', 'Cancelado')->count();
+        $canceladoSistema = tb_sistema::where('estatus', 'Cancelado')->count();
+
+
+        return Inertia::render('SideBarMenus/Bienvenido', [
+            'enProcesoAutomotriz' => $enProcesoAutomotriz,
+            'enProcesoCoordinacion' => $enProcesoCoordinacion,
+            'enProcesoLAGE' => $enProcesoLAGE,
+            'enProcesoManufactura' => $enProcesoManufactura,
+            'enProcesoMecatronica' => $enProcesoMecatronica,
+            'enProcesoNegocio' => $enProcesoNegocio,
+            'enProcesoPosgrado' => $enProcesoPosgrado,
+            'enProcesoRede' => $enProcesoRede,
+            'enProcesoSistema' => $enProcesoSistema,
+
+            'concluidoAutomotriz' => $concluidoAutomotriz,
+            'concluidoCoordinacion' => $concluidoCoordinacion,
+            'concluidoLAGE' => $concluidoLAGE,
+            'concluidoManufactura' => $concluidoManufactura,
+            'concluidoMecatronica' => $concluidoMecatronica,
+            'concluidoNegocio' => $concluidoNegocio,
+            'concluidoPosgrado' => $concluidoPosgrado,
+            'concluidoRede' => $concluidoRede,
+            'concluidoSistema' => $concluidoSistema,
+
+            'canceladoAutomotriz' => $canceladoAutomotriz,
+            'canceladoCoordinacion' => $canceladoCoordinacion,
+            'canceladoLAGE' => $canceladoLAGE,
+            'canceladoManufactura' => $canceladoManufactura,
+            'canceladoMecatronica' => $canceladoMecatronica,
+            'canceladoNegocio' => $canceladoNegocio,
+            'canceladoPosgrado' => $canceladoPosgrado,
+            'canceladoRede' => $canceladoRede,
+            'canceladoSistema' => $canceladoSistema,
+
+
+        ]);
     }
 
     public function resumenView() {

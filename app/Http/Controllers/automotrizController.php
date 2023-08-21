@@ -14,12 +14,31 @@ class automotrizController extends Controller
         $concluidoCount = tb_automotriz::where('estatus', 'Concluido')->count();
         $canceladoCount = tb_automotriz::where('estatus', 'Cancelado')->count();
         
+        $acreditacionCount = tb_automotriz::where('categoria', 'Acreditación')->count();
+        $capacitacionCount = tb_automotriz::where('categoria', 'Capacitación')->count();
+        $CertificaciónCompetenciasCount = tb_automotriz::where('categoria', 'Certificación de competencias')->count();
+        $eventoCount = tb_automotriz::where('categoria', 'Evento')->count();
+        $investigacionCount = tb_automotriz::where('categoria', 'Investigación')->count();
+        $materialEducativoCount = tb_automotriz::where('categoria', 'Material educativo')->count();
+        $planDeEstudioCount = tb_automotriz::where('categoria', 'Plan de estudio')->count();
+        $proyectoCount = tb_automotriz::where('categoria', 'Proyecto')->count();
+        $otroCount = tb_automotriz::where('categoria', 'Otro')->count();
 
         return Inertia::render('SideBarMenus/AutomotrizComponentes/Automotriz', [
             'registrosAutomotriz' => $automotriz,
             'enProcesoCount' => $enProcesoCount,
             'concluidoCount' => $concluidoCount,
             'canceladoCount' => $canceladoCount,
+        
+            'acreditacionCount' => $acreditacionCount,
+            'capacitacionCount' => $capacitacionCount,
+            'CertificaciónCompetenciasCount' => $CertificaciónCompetenciasCount,
+            'eventoCount' => $eventoCount,
+            'investigacionCount' => $investigacionCount,
+            'materialEducativoCount' => $materialEducativoCount,
+            'planDeEstudioCount' => $planDeEstudioCount,
+            'proyectoCount' => $proyectoCount,
+            'otroCount' => $otroCount,
         ]);
     }
 
@@ -45,27 +64,27 @@ class automotrizController extends Controller
         $especificar = $request->input('especificar');
 
          // crear un nuevo registro en la tabla tb_admision
-        $automotriz = new tb_automotriz;
-        $automotriz->programa_educativo = $programa_educativo;
-        $automotriz->proyecto_actividad = $proyecto_actividad;
-        $automotriz->descripcion = $descripcion;
-        $automotriz->beneficios_impacto = $beneficios_impacto;
-        $responsable = $request->input('responsable');
-        $involucrados = $request->input('involucrados');
-        $automotriz->PDI = $PDI;        
-        $automotriz->fecha_inicio = date('Y-m-d', strtotime($fecha_inicio));
-        $automotriz->fecha_fin = date('Y-m-d', strtotime($fecha_fin));
-        $automotriz->cantidad = $cantidad;
-        $automotriz->unidad = $unidad;
-        $automotriz->hombres1 = $hombres1;
-        $automotriz->mujeres1 = $mujeres1;
-        $automotriz->unidad2 = $unidad2;
-        $automotriz->hombres2 = $hombres2;
-        $automotriz->mujeres2 = $mujeres2;
-        $automotriz->estatus = $estatus;
-        $automotriz->categoria = $categoria;
-        $automotriz->especificar = $especificar;
-        $automotriz->save();
+            $automotriz = new tb_automotriz;
+            $automotriz->programa_educativo = $programa_educativo;
+            $automotriz->proyecto_actividad = $proyecto_actividad;
+            $automotriz->descripcion = $descripcion;
+            $automotriz->beneficios_impacto = $beneficios_impacto;
+            $automotriz->responsable = $responsable;
+            $automotriz->involucrados = $involucrados;
+            $automotriz->PDI = $PDI;
+            $automotriz->fecha_inicio = date('Y-m-d', strtotime($fecha_inicio));
+            $automotriz->fecha_fin = date('Y-m-d', strtotime($fecha_fin));
+            $automotriz->cantidad = $cantidad;
+            $automotriz->unidad = $unidad;
+            $automotriz->hombres1 = $hombres1;
+            $automotriz->mujeres1 = $mujeres1;
+            $automotriz->unidad2 = $unidad2;
+            $automotriz->hombres2 = $hombres2;
+            $automotriz->mujeres2 = $mujeres2;
+            $automotriz->estatus = $estatus;
+            $automotriz->categoria = $categoria;
+            $automotriz->especificar = $especificar;
+            $automotriz->save();
 
         return redirect()->route('view.autromotriz');
 
