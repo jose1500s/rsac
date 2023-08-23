@@ -16,7 +16,7 @@ class ManufacturaController extends Controller
 
         $acreditacionCount = tb_manufactura::where('categoria', 'Acreditación')->count();
         $capacitacionCount = tb_manufactura::where('categoria', 'Capacitación')->count();
-        $CertificaciónCompetenciasCount = tb_manufactura::where('categoria', 'Certificación de competencias')->count();
+        $CertificaciónCompetenciasCount = tb_manufactura::where('categoria', 'Certificación-Competencias')->count();
         $eventoCount = tb_manufactura::where('categoria', 'Evento')->count();
         $investigacionCount = tb_manufactura::where('categoria', 'Investigación')->count();
         $materialEducativoCount = tb_manufactura::where('categoria', 'Material educativo')->count();

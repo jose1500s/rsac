@@ -16,7 +16,7 @@ class posgradoController extends Controller
 
         $acreditacionCount = tb_posgrado::where('categoria', 'Acreditación')->count();
         $capacitacionCount = tb_posgrado::where('categoria', 'Capacitación')->count();
-        $CertificaciónCompetenciasCount = tb_posgrado::where('categoria', 'Certificación de competencias')->count();
+        $CertificaciónCompetenciasCount = tb_posgrado::where('categoria', 'Certificación-Competencias')->count();
         $eventoCount = tb_posgrado::where('categoria', 'Evento')->count();
         $investigacionCount = tb_posgrado::where('categoria', 'Investigación')->count();
         $materialEducativoCount = tb_posgrado::where('categoria', 'Material educativo')->count();

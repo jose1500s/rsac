@@ -16,7 +16,7 @@ class sistemasController extends Controller
 
         $acreditacionCount = tb_sistema::where('categoria', 'Acreditación')->count();
         $capacitacionCount = tb_sistema::where('categoria', 'Capacitación')->count();
-        $CertificaciónCompetenciasCount = tb_sistema::where('categoria', 'Certificación de competencias')->count();
+        $CertificaciónCompetenciasCount = tb_sistema::where('categoria', 'Certificación-Competencias')->count();
         $eventoCount = tb_sistema::where('categoria', 'Evento')->count();
         $investigacionCount = tb_sistema::where('categoria', 'Investigación')->count();
         $materialEducativoCount = tb_sistema::where('categoria', 'Material educativo')->count();

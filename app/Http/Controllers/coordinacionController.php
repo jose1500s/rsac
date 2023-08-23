@@ -16,7 +16,7 @@ class coordinacionController extends Controller
 
         $acreditacionCount = tb_coordinacion::where('categoria', 'Acreditación')->count();
         $capacitacionCount = tb_coordinacion::where('categoria', 'Capacitación')->count();
-        $CertificaciónCompetenciasCount = tb_coordinacion::where('categoria', 'Certificación de competencias')->count();
+        $CertificaciónCompetenciasCount = tb_coordinacion::where('categoria', 'Certificación-Competencias')->count();
         $eventoCount = tb_coordinacion::where('categoria', 'Evento')->count();
         $investigacionCount = tb_coordinacion::where('categoria', 'Investigación')->count();
         $materialEducativoCount = tb_coordinacion::where('categoria', 'Material educativo')->count();

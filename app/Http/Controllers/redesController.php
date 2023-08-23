@@ -16,7 +16,7 @@ class redesController extends Controller
 
         $acreditacionCount = tb_rede::where('categoria', 'Acreditación')->count();
         $capacitacionCount = tb_rede::where('categoria', 'Capacitación')->count();
-        $CertificaciónCompetenciasCount = tb_rede::where('categoria', 'Certificación de competencias')->count();
+        $CertificaciónCompetenciasCount = tb_rede::where('categoria', 'Certificación-Competencias')->count();
         $eventoCount = tb_rede::where('categoria', 'Evento')->count();
         $investigacionCount = tb_rede::where('categoria', 'Investigación')->count();
         $materialEducativoCount = tb_rede::where('categoria', 'Material educativo')->count();

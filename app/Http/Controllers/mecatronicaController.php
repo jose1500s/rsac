@@ -16,7 +16,7 @@ class mecatronicaController extends Controller
 
         $acreditacionCount = tb_mecatronica::where('categoria', 'Acreditación')->count();
         $capacitacionCount = tb_mecatronica::where('categoria', 'Capacitación')->count();
-        $CertificaciónCompetenciasCount = tb_mecatronica::where('categoria', 'Certificación de competencias')->count();
+        $CertificaciónCompetenciasCount = tb_mecatronica::where('categoria', 'Certificación-Competencias')->count();
         $eventoCount = tb_mecatronica::where('categoria', 'Evento')->count();
         $investigacionCount = tb_mecatronica::where('categoria', 'Investigación')->count();
         $materialEducativoCount = tb_mecatronica::where('categoria', 'Material educativo')->count();

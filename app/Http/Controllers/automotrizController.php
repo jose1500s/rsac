@@ -16,7 +16,7 @@ class automotrizController extends Controller
         
         $acreditacionCount = tb_automotriz::where('categoria', 'Acreditación')->count();
         $capacitacionCount = tb_automotriz::where('categoria', 'Capacitación')->count();
-        $CertificaciónCompetenciasCount = tb_automotriz::where('categoria', 'Certificación de competencias')->count();
+        $CertificaciónCompetenciasCount = tb_automotriz::where('categoria', 'Certificación-Competencias')->count();
         $eventoCount = tb_automotriz::where('categoria', 'Evento')->count();
         $investigacionCount = tb_automotriz::where('categoria', 'Investigación')->count();
         $materialEducativoCount = tb_automotriz::where('categoria', 'Material educativo')->count();

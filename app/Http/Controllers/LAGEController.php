@@ -16,7 +16,7 @@ class LAGEController extends Controller
 
         $acreditacionCount = tb_LAGE::where('categoria', 'Acreditación')->count();
         $capacitacionCount = tb_LAGE::where('categoria', 'Capacitación')->count();
-        $CertificaciónCompetenciasCount = tb_LAGE::where('categoria', 'Certificación de competencias')->count();
+        $CertificaciónCompetenciasCount = tb_LAGE::where('categoria', 'Certificación-Competencias')->count();
         $eventoCount = tb_LAGE::where('categoria', 'Evento')->count();
         $investigacionCount = tb_LAGE::where('categoria', 'Investigación')->count();
         $materialEducativoCount = tb_LAGE::where('categoria', 'Material educativo')->count();
