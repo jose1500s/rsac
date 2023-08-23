@@ -13,11 +13,33 @@ class redesController extends Controller
         $enProcesoCount = tb_rede::where('estatus', 'En proceso')->count();
         $concluidoCount = tb_rede::where('estatus', 'Concluido')->count();
         $canceladoCount = tb_rede::where('estatus', 'Cancelado')->count();
+
+        $acreditacionCount = tb_rede::where('categoria', 'Acreditación')->count();
+        $capacitacionCount = tb_rede::where('categoria', 'Capacitación')->count();
+        $CertificaciónCompetenciasCount = tb_rede::where('categoria', 'Certificación de competencias')->count();
+        $eventoCount = tb_rede::where('categoria', 'Evento')->count();
+        $investigacionCount = tb_rede::where('categoria', 'Investigación')->count();
+        $materialEducativoCount = tb_rede::where('categoria', 'Material educativo')->count();
+        $planDeEstudioCount = tb_rede::where('categoria', 'Plan de estudio')->count();
+        $proyectoCount = tb_rede::where('categoria', 'Proyecto')->count();
+        $otroCount = tb_rede::where('categoria', 'Otro')->count();
+
+
         return Inertia::render('SideBarMenus/RedesComponentes/Redes', [
             'registrosRedes' => $redes,
             'enProcesoCount' => $enProcesoCount,
             'concluidoCount' => $concluidoCount,
             'canceladoCount' => $canceladoCount,
+
+            'acreditacionCount' => $acreditacionCount,
+            'capacitacionCount' => $capacitacionCount,
+            'CertificaciónCompetenciasCount' => $CertificaciónCompetenciasCount,
+            'eventoCount' => $eventoCount,
+            'investigacionCount' => $investigacionCount,
+            'materialEducativoCount' => $materialEducativoCount,
+            'planDeEstudioCount' => $planDeEstudioCount,
+            'proyectoCount' => $proyectoCount,
+            'otroCount' => $otroCount,
         ]);
     }
 

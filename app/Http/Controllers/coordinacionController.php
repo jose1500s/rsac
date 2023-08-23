@@ -13,11 +13,32 @@ class coordinacionController extends Controller
         $enProcesoCount = tb_coordinacion::where('estatus', 'En proceso')->count();
         $concluidoCount = tb_coordinacion::where('estatus', 'Concluido')->count();
         $canceladoCount = tb_coordinacion::where('estatus', 'Cancelado')->count();
+
+        $acreditacionCount = tb_coordinacion::where('categoria', 'Acreditación')->count();
+        $capacitacionCount = tb_coordinacion::where('categoria', 'Capacitación')->count();
+        $CertificaciónCompetenciasCount = tb_coordinacion::where('categoria', 'Certificación de competencias')->count();
+        $eventoCount = tb_coordinacion::where('categoria', 'Evento')->count();
+        $investigacionCount = tb_coordinacion::where('categoria', 'Investigación')->count();
+        $materialEducativoCount = tb_coordinacion::where('categoria', 'Material educativo')->count();
+        $planDeEstudioCount = tb_coordinacion::where('categoria', 'Plan de estudio')->count();
+        $proyectoCount = tb_coordinacion::where('categoria', 'Proyecto')->count();
+        $otroCount = tb_coordinacion::where('categoria', 'Otro')->count();
+
         return Inertia::render('SideBarMenus/CoordinacionComponentes/Coordinacion', [
             'registrosCoordinacion' => $coordinacion,
             'enProcesoCount' => $enProcesoCount,
             'concluidoCount' => $concluidoCount,
             'canceladoCount' => $canceladoCount,
+
+            'acreditacionCount' => $acreditacionCount,
+            'capacitacionCount' => $capacitacionCount,
+            'CertificaciónCompetenciasCount' => $CertificaciónCompetenciasCount,
+            'eventoCount' => $eventoCount,
+            'investigacionCount' => $investigacionCount,
+            'materialEducativoCount' => $materialEducativoCount,
+            'planDeEstudioCount' => $planDeEstudioCount,
+            'proyectoCount' => $proyectoCount,
+            'otroCount' => $otroCount,
         ]);
     }
 

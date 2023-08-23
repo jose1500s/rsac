@@ -13,11 +13,32 @@ class posgradoController extends Controller
         $enProcesoCount = tb_posgrado::where('estatus', 'En proceso')->count();
         $concluidoCount = tb_posgrado::where('estatus', 'Concluido')->count();
         $canceladoCount = tb_posgrado::where('estatus', 'Cancelado')->count();
+
+        $acreditacionCount = tb_posgrado::where('categoria', 'Acreditación')->count();
+        $capacitacionCount = tb_posgrado::where('categoria', 'Capacitación')->count();
+        $CertificaciónCompetenciasCount = tb_posgrado::where('categoria', 'Certificación de competencias')->count();
+        $eventoCount = tb_posgrado::where('categoria', 'Evento')->count();
+        $investigacionCount = tb_posgrado::where('categoria', 'Investigación')->count();
+        $materialEducativoCount = tb_posgrado::where('categoria', 'Material educativo')->count();
+        $planDeEstudioCount = tb_posgrado::where('categoria', 'Plan de estudio')->count();
+        $proyectoCount = tb_posgrado::where('categoria', 'Proyecto')->count();
+        $otroCount = tb_posgrado::where('categoria', 'Otro')->count();
+
         return Inertia::render('SideBarMenus/PosgradoComponentes/Posgrado', [
             'registrosPosgrado' => $posgrado,
             'enProcesoCount' => $enProcesoCount,
             'concluidoCount' => $concluidoCount,
             'canceladoCount' => $canceladoCount,
+
+            'acreditacionCount' => $acreditacionCount,
+            'capacitacionCount' => $capacitacionCount,
+            'CertificaciónCompetenciasCount' => $CertificaciónCompetenciasCount,
+            'eventoCount' => $eventoCount,
+            'investigacionCount' => $investigacionCount,
+            'materialEducativoCount' => $materialEducativoCount,
+            'planDeEstudioCount' => $planDeEstudioCount,
+            'proyectoCount' => $proyectoCount,
+            'otroCount' => $otroCount,
         ]);
     }
 

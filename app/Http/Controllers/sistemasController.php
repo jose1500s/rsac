@@ -13,11 +13,32 @@ class sistemasController extends Controller
         $enProcesoCount = tb_sistema::where('estatus', 'En proceso')->count();
         $concluidoCount = tb_sistema::where('estatus', 'Concluido')->count();
         $canceladoCount = tb_sistema::where('estatus', 'Cancelado')->count();
+
+        $acreditacionCount = tb_sistema::where('categoria', 'Acreditación')->count();
+        $capacitacionCount = tb_sistema::where('categoria', 'Capacitación')->count();
+        $CertificaciónCompetenciasCount = tb_sistema::where('categoria', 'Certificación de competencias')->count();
+        $eventoCount = tb_sistema::where('categoria', 'Evento')->count();
+        $investigacionCount = tb_sistema::where('categoria', 'Investigación')->count();
+        $materialEducativoCount = tb_sistema::where('categoria', 'Material educativo')->count();
+        $planDeEstudioCount = tb_sistema::where('categoria', 'Plan de estudio')->count();
+        $proyectoCount = tb_sistema::where('categoria', 'Proyecto')->count();
+        $otroCount = tb_sistema::where('categoria', 'Otro')->count();
+
         return Inertia::render('SideBarMenus/SistemasComponentes/Sistemas', [
             'registrosSistemas' => $sistemas,
             'enProcesoCount' => $enProcesoCount,
             'concluidoCount' => $concluidoCount,
             'canceladoCount' => $canceladoCount,
+
+            'acreditacionCount' => $acreditacionCount,
+            'capacitacionCount' => $capacitacionCount,
+            'CertificaciónCompetenciasCount' => $CertificaciónCompetenciasCount,
+            'eventoCount' => $eventoCount,
+            'investigacionCount' => $investigacionCount,
+            'materialEducativoCount' => $materialEducativoCount,
+            'planDeEstudioCount' => $planDeEstudioCount,
+            'proyectoCount' => $proyectoCount,
+            'otroCount' => $otroCount,
         ]);
     }
 

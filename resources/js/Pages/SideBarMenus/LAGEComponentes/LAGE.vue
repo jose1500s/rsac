@@ -33,6 +33,34 @@ const props = defineProps({
     canceladoCount: {
         type: Number,
     },
+
+    acreditacionCount: {
+        type: Number,
+    },
+    capacitacionCount: {
+        type: Number,
+    },
+    CertificaciónCompetenciasCount: {
+        type: Number,
+    },
+    eventoCount: {
+        type: Number,
+    },
+    investigacionCount: {
+        type: Number,
+    },
+    materialEducativoCount: {
+        type: Number,
+    },
+    planDeEstudioCount: {
+        type: Number,
+    },
+    proyectoCount: {
+        type: Number,
+    },
+    otroCount: {
+        type: Number,
+    },
 });
 const filters = ref({
     'global': { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -467,7 +495,147 @@ const exportPDF = () => {
     html2pdf().from(divContainer).set(opt).save();
 
 }
+const programasOptions = {
+    chart: {
+        id: 'char-estatus',
+        type: 'pie',
+    },
+    labels: ['En proceso', 'Concluido', 'Cancelado'],
+    responsive: [{
+        breakpoint: 480,
+        options: {
+            chart: {
+                width: 200
+            },
+            legend: {
+                position: 'bottom'
+            }
+        }
+    }],
+    colors: ['#008FFB', '#00E396', '#900C3F'],
+    dataLabels: {
+        enabled: true,
+        dropShadow: {
+            enabled: false,
+        },
+        style: {
+            fontSize: '14px',
+            fontFamily: 'Helvetica, Arial, sans-serif',
+            fontWeight: 'bold',
+            colors: ['#fff']
+        },
+    },
+    chart: {
+        toolbar: {
+            show: true,
+        }
+    },
+    title: {
+        text: 'Estatus',
+        align: 'bottom',
+        style: {
+            fontSize: '16px',
+            color: '#666'
+        }
+    },
 
+
+};
+const seriesProgramas = [
+    props.enProcesoCount,
+    props.concluidoCount,
+    props.canceladoCount
+];
+const categoriasOptions = {
+    chart: {
+        type: 'bar',
+        height: 390,
+    },
+    plotOptions: {
+        bar: {
+            barHeight: '100%',
+            distributed: true,
+            horizontal: true,
+            dataLabels: {
+                position: 'bottom'
+            },
+        }
+    },
+    dataLabels: {
+        enabled: true,
+        textAnchor: 'start',
+        style: {
+            colors: ['#fff']
+        },
+        formatter: function (val, opt) {
+            //retornar el nombre y el valor
+            return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val
+        },
+        offsetX: 0,
+        dropShadow: {
+            enabled: true
+        }
+    },
+    stroke: {
+        width: 1,
+        colors: ['#fff']
+    },
+    xaxis: {
+        categories: [
+            'Acreditación',
+            'Capacitación',
+            'Certificación-Competencias',
+            'Evento',
+            'Investigación',
+            'Material educativo',
+            'Plan de estudio',
+            'Proyecto',
+            'Otro',
+        ],
+    },
+    yaxis: {
+        labels: {
+            show: false
+        }
+    },
+    colors: ['#008FFB', '#00E396', '#900C3F', '#FF4560', '#775DD0', '#546E7A', '#26a69a', '#D10CE8', '#FF8F00'],
+    title: {
+        text: 'Categorias',
+        align: 'bottom',
+        style: {
+            fontSize: '16px',
+            color: '#666'
+        }
+    },
+    tooltip: {
+        theme: 'dark',
+        x: {
+            show: false
+        },
+        y: {
+            title: {
+                formatter: function () {
+                    return ''
+                }
+            }
+        },
+    },
+};
+const seriesCategorias = [
+    {
+        data: [
+            props.acreditacionCount,
+            props.capacitacionCount,
+            props.CertificaciónCompetenciasCount,
+            props.eventoCount,
+            props.investigacionCount,
+            props.materialEducativoCount,
+            props.planDeEstudioCount,
+            props.proyectoCount,
+            props.otroCount,
+        ]
+    }
+];
 
 </script>
 
@@ -486,8 +654,9 @@ const exportPDF = () => {
                     <Button label="Registrar" icon="pi pi-plus" severity="success" class="!mr-3" @click="openDialogNuevo" />
                     <Button label="Eliminar" icon="pi pi-trash" severity="danger" @click="openEliminarDialog"
                         :disabled="!selectedProduct || !selectedProduct.length" />
-                        <Button label="Grafica" icon="pi pi-chart-bar" class="!ml-3" @click="openResponsive" :disabled="!selectedProduct || !selectedProduct.length" />
-                        <Button label="PDF" icon="pi pi-file-excel" class="!ml-3" @click="exportPDF"
+                    <Button label="Grafica" icon="pi pi-chart-bar" class="!ml-3" @click="openResponsive"
+                        :disabled="!selectedProduct || !selectedProduct.length" />
+                    <Button label="PDF" icon="pi pi-file-excel" class="!ml-3" @click="exportPDF"
                         :disabled="!selectedProduct || !selectedProduct.length" />
                 </template>
 
@@ -500,6 +669,16 @@ const exportPDF = () => {
                 <div id="contenedorGraficas" class="w-full flex items-center flex-col gap-0.2">
                     <div class="w-full">
                         <Chart type="bar" :data="chartData" :options="chartOptions" class="h-30rem" />
+                    </div>
+                    <div id="graficas" class="flex justify-center items-center w-full">
+                        <div id="chartEstatus" class="w-full flex justify-center items-center">
+                            <apexchart type="pie" width="425" :options="programasOptions" :series="seriesProgramas">
+                            </apexchart>
+                        </div>
+                        <div id="chartCategorias" class="w-full">
+                            <apexchart type="bar" height="380" :options="categoriasOptions" :series="seriesCategorias">
+                            </apexchart>
+                        </div>
                     </div>
 
                     <div class="w-full flex gap-5 mt-500">
@@ -547,13 +726,13 @@ const exportPDF = () => {
                         </div>
                     </div>
 
-                    
+
 
 
                 </div>
                 <div class="contendorTabla">
-                    <DataTable :value="registrosLage" ref="dt" class="p-datatable-sm" showGridlines stripedRows
-                        paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" v-model:selection="selectedProduct"
+                    <DataTable :value="registrosLage" ref="dt" class="p-datatable-sm" showGridlines stripedRows paginator
+                        :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" v-model:selection="selectedProduct"
                         @rowSelect="onRowSelect" @rowUnselect="onRowUnselect" :filters="filters"
                         :emptyMessage="noDataMessage" v-model:editingRows="editingRows" editMode="row"
                         @row-edit-save="onRowEditSave">
@@ -601,17 +780,15 @@ const exportPDF = () => {
                             </template>
                         </Column>
 
-                         <Column field="responsable" header="Responsable">
+                        <Column field="responsable" header="Responsable">
                             <template #editor="{ data, field }">
-                                <InputText v-model="data[field]" 
-                                    />
+                                <InputText v-model="data[field]" />
                             </template>
-                            </Column>
+                        </Column>
 
-                            <Column field="involucrados" header="Involucrados">
+                        <Column field="involucrados" header="Involucrados">
                             <template #editor="{ data, field }">
-                                <InputText v-model="data[field]" 
-                                    />
+                                <InputText v-model="data[field]" />
                             </template>
                         </Column>
 
@@ -749,7 +926,7 @@ const exportPDF = () => {
                     </div>
 
                 </div>
-                 <div class="w-full mt-6">
+                <div class="w-full mt-6">
                     <span class="p-float-label">
                         <Textarea v-model="responsable" rows="5" cols="30" />
                         <label>Responsable</label>
@@ -848,7 +1025,7 @@ const exportPDF = () => {
                         <label>Especificar</label>
                     </span>
                 </div>
-                
+
 
                 <template #footer>
                     <Button label="Cancelar" icon="pi pi-times" text @click="ocultarNuevoRegistro" />
@@ -869,12 +1046,12 @@ const exportPDF = () => {
             </Dialog>
 
             <!-- Dialog para Grafica -->
-            <Dialog header=" " v-model:visible="displayResponsive"
-                :breakpoints="{ '960px': '75vw', '75vw': '90vw' }" :style="{ width: '70vw' }">
+            <Dialog header=" " v-model:visible="displayResponsive" :breakpoints="{ '960px': '75vw', '75vw': '90vw' }"
+                :style="{ width: '70vw' }">
                 <!-- contenido del dialog/model desde aqui... -->
-              
-                    <graficaHM class="m-auto" :datos="selectedProduct" />
-              
+
+                <graficaHM class="m-auto" :datos="selectedProduct" />
+
                 <template #footer>
                     <Button label="Cerrar" icon="pi pi-check" @click="closeResponsive" autofocus />
                 </template>

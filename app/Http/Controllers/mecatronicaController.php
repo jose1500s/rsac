@@ -13,11 +13,31 @@ class mecatronicaController extends Controller
         $enProcesoCount = tb_mecatronica::where('estatus', 'En proceso')->count();
         $concluidoCount = tb_mecatronica::where('estatus', 'Concluido')->count();
         $canceladoCount = tb_mecatronica::where('estatus', 'Cancelado')->count();
+
+        $acreditacionCount = tb_mecatronica::where('categoria', 'Acreditación')->count();
+        $capacitacionCount = tb_mecatronica::where('categoria', 'Capacitación')->count();
+        $CertificaciónCompetenciasCount = tb_mecatronica::where('categoria', 'Certificación de competencias')->count();
+        $eventoCount = tb_mecatronica::where('categoria', 'Evento')->count();
+        $investigacionCount = tb_mecatronica::where('categoria', 'Investigación')->count();
+        $materialEducativoCount = tb_mecatronica::where('categoria', 'Material educativo')->count();
+        $planDeEstudioCount = tb_mecatronica::where('categoria', 'Plan de estudio')->count();
+        $proyectoCount = tb_mecatronica::where('categoria', 'Proyecto')->count();
+        $otroCount = tb_mecatronica::where('categoria', 'Otro')->count();
         return Inertia::render('SideBarMenus/MecatronicaComponentes/Mecatronica', [
             'registrosMecatronica' => $mecatronica,
             'enProcesoCount' => $enProcesoCount,
             'concluidoCount' => $concluidoCount,
             'canceladoCount' => $canceladoCount,
+
+             'acreditacionCount' => $acreditacionCount,
+            'capacitacionCount' => $capacitacionCount,
+            'CertificaciónCompetenciasCount' => $CertificaciónCompetenciasCount,
+            'eventoCount' => $eventoCount,
+            'investigacionCount' => $investigacionCount,
+            'materialEducativoCount' => $materialEducativoCount,
+            'planDeEstudioCount' => $planDeEstudioCount,
+            'proyectoCount' => $proyectoCount,
+            'otroCount' => $otroCount,
         ]);
     }
 

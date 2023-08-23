@@ -13,11 +13,32 @@ class negociosController extends Controller
         $enProcesoCount = tb_negocio::where('estatus', 'En proceso')->count();
         $concluidoCount = tb_negocio::where('estatus', 'Concluido')->count();
         $canceladoCount = tb_negocio::where('estatus', 'Cancelado')->count();
+
+        $acreditacionCount = tb_negocio::where('categoria', 'Acreditación')->count();
+        $capacitacionCount = tb_negocio::where('categoria', 'Capacitación')->count();
+        $CertificaciónCompetenciasCount = tb_negocio::where('categoria', 'Certificación de competencias')->count();
+        $eventoCount = tb_negocio::where('categoria', 'Evento')->count();
+        $investigacionCount = tb_negocio::where('categoria', 'Investigación')->count();
+        $materialEducativoCount = tb_negocio::where('categoria', 'Material educativo')->count();
+        $planDeEstudioCount = tb_negocio::where('categoria', 'Plan de estudio')->count();
+        $proyectoCount = tb_negocio::where('categoria', 'Proyecto')->count();
+        $otroCount = tb_negocio::where('categoria', 'Otro')->count();
+
         return Inertia::render('SideBarMenus/NegociosComponentes/Negocios', [
             'registrosNegocios' => $negocios,
             'enProcesoCount' => $enProcesoCount,
             'concluidoCount' => $concluidoCount,
             'canceladoCount' => $canceladoCount,
+
+            'acreditacionCount' => $acreditacionCount,
+            'capacitacionCount' => $capacitacionCount,
+            'CertificaciónCompetenciasCount' => $CertificaciónCompetenciasCount,
+            'eventoCount' => $eventoCount,
+            'investigacionCount' => $investigacionCount,
+            'materialEducativoCount' => $materialEducativoCount,
+            'planDeEstudioCount' => $planDeEstudioCount,
+            'proyectoCount' => $proyectoCount,
+            'otroCount' => $otroCount,
         ]);
     }
 

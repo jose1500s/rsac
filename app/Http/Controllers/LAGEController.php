@@ -13,11 +13,32 @@ class LAGEController extends Controller
         $enProcesoCount = tb_LAGE::where('estatus', 'En proceso')->count();
         $concluidoCount = tb_LAGE::where('estatus', 'Concluido')->count();
         $canceladoCount = tb_LAGE::where('estatus', 'Cancelado')->count();
+
+        $acreditacionCount = tb_LAGE::where('categoria', 'Acreditación')->count();
+        $capacitacionCount = tb_LAGE::where('categoria', 'Capacitación')->count();
+        $CertificaciónCompetenciasCount = tb_LAGE::where('categoria', 'Certificación de competencias')->count();
+        $eventoCount = tb_LAGE::where('categoria', 'Evento')->count();
+        $investigacionCount = tb_LAGE::where('categoria', 'Investigación')->count();
+        $materialEducativoCount = tb_LAGE::where('categoria', 'Material educativo')->count();
+        $planDeEstudioCount = tb_LAGE::where('categoria', 'Plan de estudio')->count();
+        $proyectoCount = tb_LAGE::where('categoria', 'Proyecto')->count();
+        $otroCount = tb_LAGE::where('categoria', 'Otro')->count();
+        
         return Inertia::render('SideBarMenus/LAGEComponentes/LAGE', [
             'registrosLage' => $lage,
             'enProcesoCount' => $enProcesoCount,
             'concluidoCount' => $concluidoCount,
             'canceladoCount' => $canceladoCount,
+
+            'acreditacionCount' => $acreditacionCount,
+            'capacitacionCount' => $capacitacionCount,
+            'CertificaciónCompetenciasCount' => $CertificaciónCompetenciasCount,
+            'eventoCount' => $eventoCount,
+            'investigacionCount' => $investigacionCount,
+            'materialEducativoCount' => $materialEducativoCount,
+            'planDeEstudioCount' => $planDeEstudioCount,
+            'proyectoCount' => $proyectoCount,
+            'otroCount' => $otroCount,
         ]);
     }
 
