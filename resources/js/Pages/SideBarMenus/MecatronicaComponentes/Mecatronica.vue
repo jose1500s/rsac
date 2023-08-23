@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { watch } from 'vue';
-
+import html2pdf from 'html2pdf.js';
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { FilterMatchMode } from 'primevue/api';
 import DataTable from 'primevue/datatable';
@@ -390,7 +390,81 @@ onMounted(() => {
     chartData.value = setChartData();
     chartOptions.value = setChartOptions();
 });
+const exportPDF = () => {
+    const divContainer = document.createElement('div');
 
+    divContainer.innerHTML = `
+            <div id="heading" class="flex justify-between"> 
+                 <div id="img1">
+                     <img  src="images/UPQLOGOREDONDO.png" alt="Logo-UTVT-1"  width="100px !import">
+                </div>
+                <div id="img2">
+                    <img  src="images/RSAC-logos_transparent.png" alt="Logo-UTVT-1"  width="100px">
+                </div>
+            </div>
+                <div>
+                    <div>
+                        <h3 class="text-xl font-bold text-indigo-600 sm:text-3xl m-5">
+                            RSAC - Reporte de Proyectos y Actividades
+                        </h3>
+                     </div>
+                     <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+                        <thead class="ltr:text-left rtl:text-right">
+                            <tr class='text-left'>
+                                <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Programa Educativo</th>
+                                <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Proyecto/Actividad</th>
+                                <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Responsable</th>
+                                <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Estatus</th>
+                                <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Categoria</th>
+                                <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">PDI</th>
+                                <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Fecha Inicio</th>
+                                <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Fecha Fin</th>
+                                <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Unidades</th>
+                                <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Hombres</th>
+                                <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Mujeres</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            ${selectedProduct.value.map((item) => {
+        return `
+                                    <tr class="odd:bg-gray-50">
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">${item.programa_educativo}</td>
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">${item.proyecto_actividad}</td>
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">${item.responsable}</td>
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">${item.estatus}</td>
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">${item.categoria}</td>
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">${item.PDI}</td>
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">${item.fecha_inicio}</td>
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">${item.fecha_fin}</td>
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">${item.unidad + ' - ' + item.unidad2}</td>
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">${item.hombres1 + item.hombres2}</td>
+                                        <td class="whitespace-nowrap px-4 py-2 text-gray-700">${item.mujeres1 + item.mujeres2}</td>
+                                    </tr>
+                                `;
+    }).join('')
+        }
+                        </tbody>
+                    </table>
+                </div
+            </div>
+            
+        `;
+    const opt = {
+        margin: 0,
+        filename: 'reporte.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: {
+            unit: 'in',
+            format: 'letter',
+            orientation: 'landscape',
+            format: [14, 20] //hacer grande el pdf, pa que quepa todas las columnas
+        }
+    };
+
+    html2pdf().from(divContainer).set(opt).save();
+
+}
 
 </script>
 
@@ -410,6 +484,8 @@ onMounted(() => {
                     <Button label="Eliminar" icon="pi pi-trash" severity="danger" @click="openEliminarDialog"
                         :disabled="!selectedProduct || !selectedProduct.length" />
                         <Button label="Grafica" icon="pi pi-chart-bar" class="!ml-3" @click="openResponsive" :disabled="!selectedProduct || !selectedProduct.length" />
+                        <Button label="PDF" icon="pi pi-file-excel" class="!ml-3" @click="exportPDF"
+                        :disabled="!selectedProduct || !selectedProduct.length" />
                 </template>
 
                 <template #end>
